@@ -1,0 +1,45 @@
+
+-------------------
+
+pip install --no-deps spacy
+export BLIS_ARCH=generic ★★★これをやらないとインストールできない
+pip install blis==0.3.1    0.2.4
+python -m spacy download en_core_web_sm
+
+-------------------
+
+pip install SudachiPy
+pip install https://object-storage.tyo2.conoha.io/v1/nc_2520839e1f9641b08211a5c85243124a/sudachi/SudachiDict_core-20191030.tar.gz
+
+wget https://object-storage.tyo2.conoha.io/v1/nc_2520839e1f9641b08211a5c85243124a/sudachi/sudachi-dictionary-20191030-full.zip
+解凍後 system_full.dic -> system.dic
+system.dic を 
+/home/seki/venv/py36/lib/python3.6/site-packages/sudachipy/resources
+/usr/local/lib/python3.6/dist-packages/sudachipy/resources (<-- pip show SudachiPyで確認)
+へコピー
+
+Python
+	from sudachipy import tokenizer
+	from sudachipy import dictionary
+	tokenizer_obj = dictionary.Dictionary().create()
+	mode = tokenizer.Tokenizer.SplitMode.A
+	[m.surface() for m in tokenizer_obj.tokenize("国家公務員", mode)]
+	# => ['国家', '公務', '員']
+
+-------------------
+
+pip install "https://github.com/megagonlabs/ginza/releases/download/latest/ginza-latest.tar.gz"
+pip uninstall -y spacy thinc cymem murmurhash preshed ujson
+pip install spacy
+python -m spacy download en_core_web_sm
+
+Python
+	import spacy
+	nlp = spacy.load('ja_ginza')
+	doc = nlp('依存構造解析の実験を行っています。')
+	for sent in doc.sents:
+		for token in sent:
+			print(token.i, token.orth_, token.lemma_, token.pos_, token.tag_, token.dep_, token.head.i)
+		print('EOS')
+
+-------------------
