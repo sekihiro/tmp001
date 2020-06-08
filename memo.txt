@@ -1,0 +1,19 @@
+
+[Docker]
+$ sudo gpasswd -a $USER docker
+$ systemctl restart docker.service
+-> jetson reboot
+
+$ docker images
+$ docker run hello-world
+
+$ docker version
+$ docker pull ubuntu:18.04
+$ docker images
+$ docker run -it -d --name ubuntu18.04 ubuntu:18.04
+$ docker ps
+$ docker exec -it ubuntu18.04 /bin/bash
+
+<container> apt-get update
+<container> apt-get install -y python3 python3-pip
+
